@@ -8,7 +8,8 @@
     "moduleDetection": "force",
     "isolatedModules": true,
     "verbatimModuleSyntax": false,
-    "module": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "outDir": "dist",
     "sourceMap": true
   },
@@ -19,5 +20,12 @@
   "noEmit": true,
   "lib": [
     "es2022"
+  ],
+  "include": [
+    "src/",
+    "resources"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

@@ -5,9 +5,13 @@
 
 declare module "sst" {
   export interface Resource {
-    "MyFunction": {
+    "LevelLearningBus": {
+      "arn": string
       "name": string
-      "type": "sst.aws.Function"
+      "type": "sst.aws.Bus"
+    }
+    "LevelLearningSite": {
+      "type": "sst.aws.Nextjs"
       "url": string
     }
   }

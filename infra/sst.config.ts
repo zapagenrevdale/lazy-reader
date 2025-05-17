@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="./.sst/platform/config.d.ts" />
 
 export default $config({
@@ -10,9 +11,6 @@ export default $config({
     };
   },
   async run() {
-    new sst.aws.Function("MyFunction", {
-      handler: "src/functions/sample.handler",
-      url: true
-    });
+    await import("./src/resources")
   },
 });

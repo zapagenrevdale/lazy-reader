@@ -1,6 +1,8 @@
+import type { EventBridgeEvent } from "aws-lambda";
 
-export const handler = async (event: any) => {
-  console.log("Event received:", event);
+export async function handler(event: EventBridgeEvent<"frontend.input", { gago: string }>) {
+
+  console.log(event)
 
   return {
     statusCode: 200,
