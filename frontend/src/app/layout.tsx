@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Oxanium, Merriweather, Fira_Code } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css";
 
 const oxaniumSans = Oxanium({
@@ -12,13 +13,13 @@ const firaCodeMono = Fira_Code({
   subsets: ["latin"],
 });
 
-const merriweatherSerif = Merriweather({
+Merriweather({
   weight: ["300", "400", "700", "900"]
 });
 
 export const metadata: Metadata = {
-  title: "Levels Learning",
-  description: "Learn in anyting in 5 level of difficulties",
+  title: "LazyReader",
+  description: "Summarize blogs and listen to them, because you dont read.",
 };
 
 
@@ -28,11 +29,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${oxaniumSans.variable} ${firaCodeMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
