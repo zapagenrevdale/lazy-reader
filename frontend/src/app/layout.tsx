@@ -13,9 +13,9 @@ const firaCodeMono = Fira_Code({
   subsets: ["latin"],
 });
 
-Merriweather({
-  weight: ["300", "400", "700", "900"]
-});
+// Merriweather({
+//   weight: ["300", "400", "700", "900"]
+// });
 
 export const metadata: Metadata = {
   title: "LazyReader",
