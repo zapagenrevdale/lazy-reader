@@ -5,14 +5,35 @@
 
 declare module "sst" {
   export interface Resource {
-    "LevelLearningBus": {
+    "ClientBus": {
       "arn": string
       "name": string
       "type": "sst.aws.Bus"
     }
-    "LevelLearningSite": {
-      "type": "sst.aws.Nextjs"
+    "LazyReaderApi": {
+      "type": "sst.aws.ApiGatewayV2"
       "url": string
+    }
+    "LazyReaderBucket": {
+      "name": string
+      "type": "sst.aws.Bucket"
+    }
+    "OpenAiKey": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "SummaryBus": {
+      "arn": string
+      "name": string
+      "type": "sst.aws.Bus"
+    }
+    "SupabaseKey": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "SupabaseUrl": {
+      "type": "sst.sst.Secret"
+      "value": string
     }
   }
 }
