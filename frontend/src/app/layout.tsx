@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Oxanium, Merriweather, Fira_Code } from "next/font/google";
+
+import { Toaster } from "@/components/ui/sonner"
+import { Oxanium, Fira_Code } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css";
 
@@ -12,10 +14,6 @@ const firaCodeMono = Fira_Code({
   variable: "--font-firacode-mono",
   subsets: ["latin"],
 });
-
-// Merriweather({
-//   weight: ["300", "400", "700", "900"]
-// });
 
 export const metadata: Metadata = {
   title: "LazyReader",
@@ -40,6 +38,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
