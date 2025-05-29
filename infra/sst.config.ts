@@ -11,6 +11,11 @@ export default $config({
     };
   },
   async run() {
-    await import("./src/resources")
+    const { api, bucket } = await import("./src/resources")
+
+    return {
+      Api: api.url,
+      Bucket: bucket.name,
+    }
   },
 });
