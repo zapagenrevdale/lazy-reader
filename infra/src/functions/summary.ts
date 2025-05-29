@@ -39,13 +39,13 @@ export async function handler(event: EventBridgeEvent<"summary.requested", LazyR
 
     const summaryKey = `summary/${uid}/${btoa(url)}.txt`;
 
-    await uploadText({
+    const objectUrl = await uploadText({
       text: summary,
       key: summaryKey,
     })
 
     await supabaseClient.from("Record").update({
-      summary: summaryKey,
+      summary: objectUrl,
       metadata: {
         ...metadata,
         "word count": getWordCount(summary)

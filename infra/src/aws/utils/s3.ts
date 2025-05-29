@@ -3,6 +3,13 @@ import { GetObjectCommand, PutObjectCommand, type PutObjectCommandInput } from "
 import { Resource } from "sst";
 import { s3Client } from "..";
 
+const bucket = Resource.LazyReaderBucket.name;
+const region = process.env.AWS_REGION;
+
+function getObjectUrl(key: string) {
+  return `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
+}
+
 export async function uploadText({
   text,
   key,
@@ -12,13 +19,15 @@ export async function uploadText({
 }) {
 
   const uploadParams: PutObjectCommandInput = {
-    Bucket: Resource.LazyReaderBucket.name,
+    Bucket: bucket,
     Key: key,
     Body: text,
     ContentType: "text/plain"
   };
 
   await s3Client.send(new PutObjectCommand(uploadParams));
+
+  return getObjectUrl(key);
 }
 
 export async function uploadAudio({
@@ -30,7 +39,7 @@ export async function uploadAudio({
 }) {
 
   const uploadParams: PutObjectCommandInput = {
-    Bucket: Resource.LazyReaderBucket.name,
+    Bucket: bucket,
     Key: key,
     Body: audioStream,
     ContentType: "audio/wav",
@@ -45,8 +54,13 @@ export async function getTextFromS3({
   key: string;
 }): Promise<string> {
   try {
+    if (key.startsWith("https")) {
+      const response = await fetch(key)
+      return await response.text()
+    }
+
     const command = new GetObjectCommand({
-      Bucket: Resource.LazyReaderBucket.name,
+      Bucket: bucket,
       Key: key,
     });
 
@@ -73,13 +87,14 @@ export async function uploadAudioToS3({
 }) {
   try {
     const command = new PutObjectCommand({
-      Bucket: Resource.LazyReaderBucket.name,
+      Bucket: bucket,
       Key: key,
       Body: audioBuffer,
       ContentType: "audio/wav",
     });
 
     await s3Client.send(command);
+    return getObjectUrl(key);
 
   } catch (error) {
     console.error("Error uploading to S3:", error);

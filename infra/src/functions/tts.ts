@@ -22,13 +22,13 @@ export async function handler(event: EventBridgeEvent<"summary.requested", LazyR
 
     const audioKey = `audio/${uid}/${btoa(url)}.wav`;
 
-    await uploadAudioToS3({
+    const objectUrl = await uploadAudioToS3({
       audioBuffer: audioBuffer,
       key: audioKey
     })
 
     await supabaseClient.from("Record").update({
-      audio: audioKey,
+      audio: objectUrl,
     }).match(condition)
   }
 }
