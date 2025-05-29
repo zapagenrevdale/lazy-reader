@@ -3,11 +3,6 @@ name: Production Deployment
 on:
   push:
     branches:
-name: Production Deployment
-
-on:
-  push:
-    branches:
       - main
 
 concurrency:
