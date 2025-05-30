@@ -10,6 +10,7 @@ summaryBus.subscribe("SummarizationSubscriber", {
   link: [supabaseKey, supabaseUrl, bucket, summaryBus, openAiKey],
   handler: "src/functions/summary.handler",
   timeout: "10 minutes",
+  retries: 1,
 }, {
   pattern: {
     detailType: ["summary.requested"],
@@ -21,6 +22,7 @@ summaryBus.subscribe("TTSSubscriber", {
   link: [supabaseKey, supabaseUrl, bucket, openAiKey],
   handler: "src/functions/tts.handler",
   timeout: "5 minutes",
+  retries: 1,
 }, {
   pattern: {
     detailType: ["summary.generated"],
@@ -32,6 +34,7 @@ summaryBus.subscribe("ImageSubscriber", {
   link: [supabaseKey, supabaseUrl, bucket, openAiKey],
   handler: "src/functions/tts.handler",
   timeout: "5 minutes",
+  retries: 1,
 }, {
   pattern: {
     detailType: ["summary.generated"],
@@ -49,6 +52,7 @@ clientBus.subscribe("ScrapingSubscriber",
     nodejs: {
       install: ["@sparticuz/chromium"],
     },
+    retries: 3
   },
   {
     pattern: {
