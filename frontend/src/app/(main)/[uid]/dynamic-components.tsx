@@ -10,6 +10,7 @@ import { getText } from "@/services/s3";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AudioPlayer } from "@/components/audio-player";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 
 export function DynamicComponents({ records }: { records: LazyReaderRecord[] }) {
@@ -58,7 +59,8 @@ export function DynamicComponents({ records }: { records: LazyReaderRecord[] }) 
       <ResizablePanel defaultSize={25} maxSize={25} minSize={20}>
         <ScrollArea className="h-screen">
           <div className="pt-10 pb-40 px-3 space-y-3">
-            <div className="h-64 bg-primary w-full rounded">
+            <div className="h-64 bg-primary w-full rounded relative">
+              {selectedRecord.image ? <Image src={selectedRecord.image} fill className="object-cover" alt="Image" /> : null}
             </div>
             <div className="mb-6">
               <h1 className="text-xl">{selectedRecord.metadata?.title ?? "~No Title yet"}</h1>
@@ -78,7 +80,7 @@ export function DynamicComponents({ records }: { records: LazyReaderRecord[] }) 
           audioUrl={selectedRecord.audio!}
           title={selectedRecord.metadata?.title ?? "~No Title"}
           url={selectedRecord.url}
-          albumArt="/placeholder.svg?height=56&width=56"
+          albumArt={selectedRecord.image}
           goToNext={goToNext}
           goToPrev={goToPrev}
         />

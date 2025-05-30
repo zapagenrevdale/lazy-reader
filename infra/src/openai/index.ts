@@ -4,7 +4,8 @@
 import { Resource } from "sst";
 
 import { createOpenAI } from "@ai-sdk/openai"
-import { generateText, experimental_generateSpeech as generateSpeech } from "ai";
+import { generateText, experimental_generateSpeech as generateSpeech } from "ai"
+import { experimental_generateImage as generateImage } from 'ai';;
 
 
 const openai = createOpenAI({
@@ -66,4 +67,17 @@ export async function textToAudio({ text }: { text: string }) {
     console.error('Error generating audio:', error);
     throw new Error(`Failed to generate audio: ${error}`);
   }
+}
+
+export async function generateImageFromSummary({ text }: { text: string }) {
+
+  const { image } = await generateImage({
+    model: openai.image('dall-e-3'),
+    prompt: `Create an image based on the following summary: ${text}`,
+    aspectRatio: '4:4',
+    n: 1,
+    size: "1024x1024",
+  });
+
+  return Buffer.from(image.uint8Array)
 }

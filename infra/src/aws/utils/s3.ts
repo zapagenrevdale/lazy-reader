@@ -102,3 +102,28 @@ export async function uploadAudioToS3({
   }
 }
 
+export async function uploadImageToS3({
+  buffer,
+  key
+}: {
+  buffer: Buffer<ArrayBuffer>;
+  key: string;
+}) {
+  try {
+    const command = new PutObjectCommand({
+      Bucket: bucket,
+      Key: key,
+      Body: buffer,
+      ContentType: "image/png",
+    });
+
+    await s3Client.send(command);
+    return getObjectUrl(key);
+
+  } catch (error) {
+    console.error("Error uploading to S3:", error);
+    throw new Error(`Failed to upload image to S3: ${error}`);
+  }
+}
+
+

@@ -28,6 +28,17 @@ summaryBus.subscribe("TTSSubscriber", {
   }
 });
 
+summaryBus.subscribe("ImageSubscriber", {
+  link: [supabaseKey, supabaseUrl, bucket, openAiKey],
+  handler: "src/functions/tts.handler",
+  timeout: "5 minutes",
+}, {
+  pattern: {
+    detailType: ["summary.generated"],
+    source: ["summary.lambda"]
+  }
+});
+
 export const clientBus = new sst.aws.Bus("ClientBus");
 
 clientBus.subscribe("ScrapingSubscriber",

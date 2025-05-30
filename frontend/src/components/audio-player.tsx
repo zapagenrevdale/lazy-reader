@@ -1,5 +1,7 @@
 "use client"
 
+import Image from "next/image"
+
 import { useEffect, useRef, useState } from "react"
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX, Repeat, Shuffle } from "lucide-react"
 import { Slider } from "@/components/ui/slider"
@@ -8,12 +10,12 @@ interface AudioPlayerProps {
   audioUrl: string
   title: string
   url: string
-  albumArt: string
+  albumArt: string | null;
   goToNext: () => void;
   goToPrev: () => void;
 }
 
-export function AudioPlayer({ audioUrl, title, url, goToPrev, goToNext }: AudioPlayerProps) {
+export function AudioPlayer({ albumArt, audioUrl, title, url, goToPrev, goToNext }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
@@ -161,8 +163,10 @@ export function AudioPlayer({ audioUrl, title, url, goToPrev, goToNext }: AudioP
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 w-1/3">
             <div
-              className="w-14 h-14 rounded-sm bg-primary"
-            />
+              className="w-14 h-14 rounded-sm bg-primary relative"
+            >
+              {albumArt ? <Image src={albumArt} fill className="object-cover" alt="Image" /> : null}
+            </div>
             <div>
               <p className="font-medium text-sm">{title}</p>
               <p className="text-xs text-zinc-400">{url}</p>

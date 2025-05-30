@@ -7,7 +7,7 @@ import { supabaseClient } from "../supabase";
 import { uploadText } from "../aws/utils";
 import { sendSummaryEvent } from "../aws/utils/eb";
 
-const LOCAL_CHROMIUM_PATH = "/tmp/localChromium/chromium/mac_arm-1466314/chrome-mac/Chromium.app/Contents/MacOS/Chromium";
+const LOCAL_CHROMIUM_PATH = "/tmp/localChromium/chromium/mac_arm-1466951/chrome-mac/Chromium.app/Contents/MacOS/Chromium";
 
 export async function handler(event: EventBridgeEvent<"client.input", LazyReaderEventArgs>) {
 
