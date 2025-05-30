@@ -32,7 +32,7 @@ summaryBus.subscribe("TTSSubscriber", {
 
 summaryBus.subscribe("ImageSubscriber", {
   link: [supabaseKey, supabaseUrl, bucket, openAiKey],
-  handler: "src/functions/tts.handler",
+  handler: "src/functions/image.handler",
   timeout: "5 minutes",
   retries: 1,
 }, {
