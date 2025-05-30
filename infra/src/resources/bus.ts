@@ -52,7 +52,7 @@ clientBus.subscribe("ScrapingSubscriber",
     nodejs: {
       install: ["@sparticuz/chromium"],
     },
-    retries: 3
+    retries: 2
   },
   {
     pattern: {
