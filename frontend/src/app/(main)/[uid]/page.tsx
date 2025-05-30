@@ -25,10 +25,10 @@ export default function RecordsPage({ params }: { params: Promise<{ uid: string 
         {
           event: '*',
           schema: 'public',
-          table: "Record"
+          table: "Record",
+          filter: `userUid=eq.${uid}`
         },
-        (payload) => {
-          console.log(payload)
+        () => {
           refetch()
         }
       )
@@ -37,7 +37,7 @@ export default function RecordsPage({ params }: { params: Promise<{ uid: string 
     return () => {
       subscription.unsubscribe();
     }
-  }, [refetch])
+  }, [refetch, uid])
 
   return <ResizablePanelGroup direction="horizontal" className="w-full min-h-screen">
     <ResizablePanel className="min-h-screen" defaultSize={20} maxSize={25} minSize={20}>
